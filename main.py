@@ -31,7 +31,6 @@ def store_response_json(json_object: dict, file_name='AirQuality.json',
 
 
 def json_from_file(path: str = './data/AirQuality.json') -> dict:
-    # TODO: test this function!
     """
     Retrieve json from file.
     """
@@ -44,10 +43,23 @@ def json_from_file(path: str = './data/AirQuality.json') -> dict:
     return query_dict
 
 
+def tomorrow_forecast(json_object: dict) -> str:
+    # TODO: Make the output string pretty.
+    """Returns tomorrow's forcast."""
+    try:
+        _tomorrow_forecast_dict = json_object['currentForecast'][1]
+        # Explicit line continuation below.
+        _tomorrow_forecast_str = f"{_tomorrow_forecast_dict['forecastSummary']}\n\
+                                   {_tomorrow_forecast_dict['forecastText']}"
+    except KeyError:
+        print(f'{KeyError}: Expected JSON-formatted response from the TfL API.')
+
+    return _tomorrow_forecast_str
+
+
 def main():
-    json_object = get_json()
-    store_response_json(json_object)
-    print('Done!')
+    json_object = json_from_file()
+    print(tomorrow_forecast(json_object))
 
 
 if __name__ == '__main__':
