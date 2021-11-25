@@ -1,4 +1,6 @@
 .gitignore
+__pycache__
+mini-project-I-part-II.ipynb
 data
 *.csv
 *.zip
