@@ -6,12 +6,12 @@ import requests as re
 
 # -------------------------------------General functions---------------------------------------------
 
-def get_json(url: str, authentication: tuple = (PRIMARY_KEY, SECONDARY_KEY), parameters: dict = None) -> re.Response:
+def get_json(url: str = AIR_QUALITY_URL, parameters: dict = None) -> re.Response:
     """Query the desired API"""
-    response = re.get(url, auth=authentication, params=parameters)
-    if response.status_code == 200:
-        return response.json()
-    print(f'API returned: {response.status_code}')
+    _response = re.get(url, params=parameters)
+    if _response.status_code == 200:
+        return _response.json()
+    print(f'API returned: {_response.status_code}')
 
 
 def store_response_json(json_object: dict, file_name: str = MOST_RECENT,
@@ -19,24 +19,24 @@ def store_response_json(json_object: dict, file_name: str = MOST_RECENT,
     """
     Store response JSON object in a file.
     """
-    _path = directory + file_name  # Concatenate the strings.
+    _PATH = f'{directory}{file_name}'  # Concatenate the strings.
     if not os.path.exists(directory):
         os.mkdir(directory)
 
-    with open(_path, 'w') as json_file:
-        json.dump(json_object, json_file, sort_keys=True, indent=4)
+    with open(_PATH, 'w') as _json_file:
+        json.dump(json_object, _json_file, sort_keys=True, indent=4)
 
 
-def json_from_file(file_name: str, directory: str = DIRECTORY) -> dict:
+def json_from_file(file_name: str = MOST_RECENT, directory: str = DIRECTORY) -> dict:
     """
     Retrieve a JSON object from a file.
     """
-    _path = directory + file_name  # Concatenate the strings.
+    _PATH = f'{directory}{file_name}'  # Concatenate the strings.
     try:
-        with open(_path) as json_file:
+        with open(_PATH) as json_file:
             query_dict = json.load(json_file)
     except FileNotFoundError:
-        print(f'{FILE_NOT_FOUND} {_path}')
+        print(f'{FILE_NOT_FOUND} {_PATH}')
 
     return query_dict
 
@@ -71,13 +71,14 @@ def valid_tfl_transportation(json_object: list) -> tuple[list, int]:
     return (valid_modes_string, len(valid_modes_list))
 
 
-def get_valid_lines(url: str, transportation_modes: str = 'bus, tube') -> re.Response:
+def get_valid_lines(url: str = ALL_MODES, transportation_modes: str = 'bus, tube') -> re.Response:
     """
     Retrieves all lines for a comma-separated list of modes.
 
     transportation_modes = comma separated string e.g. bus, tube.
     """
-    return get_json(url+transportation_modes)
+    _FULL_URL = f"{url}{transportation_modes}"
+    return get_json(_FULL_URL)
 
 
 def bus_tube_lines(json_object: list) -> tuple:
@@ -102,11 +103,22 @@ def bus_tube_lines(json_object: list) -> tuple:
     return (bus_sum, tube_sum, total_sum)
 
 
+def get_line_stations(id: str = 'victoria', tfl_only: bool = False, url: str = BASE_LINE):
+    _FULL_URL = f'{url}{id}/StopPoints'
+    return get_json(_FULL_URL, parameters={'tflOperatedNationalRailStationsOnly': tfl_only})
+
+
+def count_line_stations(json_object: list) -> int:
+    _station_sum = 0
+    for station in json_object:
+        _station_sum += 1
+
+    return _station_sum
+
+
 def main():
-    json_object = json_from_file(MOST_RECENT)
-    b, t, total = bus_tube_lines(json_object)
-    print(
-        f"\nBus line total: {b}\nTube line total: {t}\nCombined total: {total}")
+    json_object = get_line_stations()
+    print(count_line_stations(json_object))
 
 
 if __name__ == '__main__':

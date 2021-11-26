@@ -2,13 +2,11 @@ import os
 
 # ------------------------------------------API-specific--------------------------------------------
 
-# Retrieve API keys from environment variables.
-PRIMARY_KEY = os.getenv('TfL_pkey')
-SECONDARY_KEY = os.getenv('TfL_skey')
 AIR_QUALITY_URL = "https://api.tfl.gov.uk/AirQuality/"
 VALID_MODES_URL = "https://api.tfl.gov.uk/Line/Meta/Modes/"
 ALL_BIKEPOINTS_URL = "https://api.tfl.gov.uk/BikePoint/"
 ALL_MODES = "https://api.tfl.gov.uk/Line/Mode/"
+BASE_LINE = "https://api.tfl.gov.uk/Line/"
 
 # ----------------------------------------Local Pathing---------------------------------------------
 
