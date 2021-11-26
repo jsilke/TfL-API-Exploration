@@ -6,12 +6,12 @@ import requests as re
 
 # -------------------------------------General functions---------------------------------------------
 
-def get_json(url: str, authentication: tuple = (PRIMARY_KEY, SECONDARY_KEY)) -> re.Response:
+def get_json(url: str, authentication: tuple = (PRIMARY_KEY, SECONDARY_KEY), parameters: dict = None) -> re.Response:
     """Query the desired API"""
-    response = re.get(url, auth=authentication)
+    response = re.get(url, auth=authentication, params=parameters)
     if response.status_code == 200:
         return response.json()
-    print(f'API returned:{response.status_code}')
+    print(f'API returned: {response.status_code}')
 
 
 def store_response_json(json_object: dict, file_name: str = MOST_RECENT,
@@ -71,10 +71,42 @@ def valid_tfl_transportation(json_object: list) -> tuple[list, int]:
     return (valid_modes_string, len(valid_modes_list))
 
 
+def get_valid_lines(url: str, transportation_modes: str = 'bus, tube') -> re.Response:
+    """
+    Retrieves all lines for a comma-separated list of modes.
+
+    transportation_modes = comma separated string e.g. bus, tube.
+    """
+    return get_json(url+transportation_modes)
+
+
+def bus_tube_lines(json_object: list) -> tuple:
+    """
+    Returns the total number of bus and tube lines as a dictionary and prints all tube 
+    line names.
+    """
+    tube_sum = 0
+    bus_sum = 0
+
+    print("The tube lines of Transport for London are:")
+
+    for line in json_object:
+        if line['modeName'] == 'tube':
+            print(line['name'])
+            tube_sum += 1
+        else:
+            bus_sum += 1
+
+    total_sum = tube_sum + bus_sum
+
+    return (bus_sum, tube_sum, total_sum)
+
+
 def main():
     json_object = json_from_file(MOST_RECENT)
-    solution_3 = valid_tfl_transportation(json_object)
-    print(solution_3)
+    b, t, total = bus_tube_lines(json_object)
+    print(
+        f"\nBus line total: {b}\nTube line total: {t}\nCombined total: {total}")
 
 
 if __name__ == '__main__':
