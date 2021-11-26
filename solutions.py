@@ -16,7 +16,7 @@ def task_3():
 
 
 def task_4():
-    pass
+    print(get_bikepoint_info())
 
 
 def task_5():
@@ -28,11 +28,10 @@ def task_5():
 
 def task_6():
     all_stations = get_line_stations()
-    tfl_stations = get_line_stations(tfl_only=True)
     print(
-        f"Assuming ALL stations: {count_line_stations(all_stations)}\nAssuming TfL stations only: {count_line_stations(tfl_stations)}")
+        f"The victoria line has {count_line_stations(all_stations)} stations along it.")
 
 
 def task_7():
     print(plan_journey(get_stop_points(), 'bus'))
-    print(plan_journey(get_stop_points(), 'tube'))
+    print(plan_journey(get_stop_points(), 'tube, bus'))

@@ -6,7 +6,7 @@ import requests as re
 
 # -------------------------------------General functions---------------------------------------------
 
-def get_json(url: str = AIR_QUALITY_URL, parameters: dict = None) -> re.Response:
+def get_json(url: str = AIR_QUALITY_URL, parameters: dict = {}) -> re.Response:
     """Query the desired API"""
     _response = re.get(url, params=parameters)
     if _response.status_code == 200:
@@ -69,10 +69,10 @@ def valid_tfl_transportation(url: str = VALID_MODES_URL) -> tuple[list, int]:
     tfl_modes = '\n- '.join(valid_modes_list)
 
     print(
-        f'TfL\'s modes of transportation include:\n{tfl_modes}\nThus, TfL offers {len(valid_modes_list)} forms of transportation at present.')
+        f'TfL\'s modes of transportation include:\n- {tfl_modes}\nThus, TfL offers {len(valid_modes_list)} forms of transportation at present.')
 
 
-def get_valid_lines(url: str = ALL_MODES, transportation_modes: str = 'bus, tube') -> re.Response:
+def get_valid_lines(url: str = ALL_MODES_URL, transportation_modes: str = 'bus, tube') -> re.Response:
     """
     Retrieves all lines for a comma-separated list of modes.
 
@@ -104,7 +104,7 @@ def bus_tube_lines(json_object: list) -> tuple:
     return (bus_sum, tube_sum, total_sum)
 
 
-def get_line_stations(id: str = 'victoria', tfl_only: bool = False, url: str = BASE_LINE):
+def get_line_stations(id: str = 'victoria', tfl_only: bool = False, url: str = BASE_LINE_URL):
     _FULL_URL = f'{url}{id}/StopPoints'
     return get_json(_FULL_URL, parameters={'tflOperatedNationalRailStationsOnly': tfl_only})
 
@@ -117,7 +117,7 @@ def count_line_stations(json_object: list) -> int:
     return _station_sum
 
 
-def get_stop_points(origin: str = "Heathrow Airport", destination: str = "Tower Bridge", url: str = STOP_POINTS) -> tuple[str, str]:
+def get_stop_points(origin: str = "Heathrow Airport", destination: str = "Tower Bridge", url: str = STOP_POINTS_URL) -> tuple[str, str]:
     """Get stop point coordinates for origin and destination and return them as a tuple."""
     # TODO Get coordinates for a station that isn't out of service!
     origin, destination = get_json(url, parameters={'query': origin}),\
@@ -130,7 +130,7 @@ def get_stop_points(origin: str = "Heathrow Airport", destination: str = "Tower 
     return (origin_lat_lon.strip('()'), destination_lat_lon.strip('()'))
 
 
-def plan_journey(from_and_to: tuple[str, str], mode: str, url: str = JOURNEY_RESULTS):
+def plan_journey(from_and_to: tuple[str, str], mode: str, url: str = JOURNEY_RESULTS_URL):
     """Currently only works for bus and tube, can be generalized easily."""
     _JOURNEY_URL = f"{url}{from_and_to[0]}/to/{from_and_to[1]}"
 
@@ -139,14 +139,31 @@ def plan_journey(from_and_to: tuple[str, str], mode: str, url: str = JOURNEY_RES
     trip_duration = trip['journeys'][0]['duration']
 
     # Location needs to be generalized.
-    return f'A {mode} trip from Heathrow Airport to Tower bridge will take {trip_duration} minutes.'
+    return f'A {mode} trip from Heathrow Airport to Tower Bridge will take {trip_duration} minutes.'
 
 # TODO Add functions for task 4!
 
 
+def get_bikepoint_info(url: dict = ALL_BIKEPOINTS_URL):
+    """Parse BikePoint JSON to extract the number of bike points and docks."""
+    _bike_points = get_json(url)
+    _bike_point_quantity = len(_bike_points)
+
+    _bike_sum = 0
+    _empty_dock_sum = 0
+    _dock_sum = 0
+
+    for _bike_point in _bike_points:
+        _empty_dock_sum += int(_bike_point['additionalProperties']
+                               [-2]['value'])
+        _dock_sum += int(_bike_point['additionalProperties'][-1]['value'])
+        _bike_sum += int(_bike_point['additionalProperties'][-3]['value'])
+
+    return f"TfL operates {_bike_point_quantity} bike points at present.\nThese bike points have a total of {sum((_empty_dock_sum, _dock_sum))} docks of which {_empty_dock_sum} are empty and {_dock_sum} are not.\nThere are currently {_dock_sum - (_bike_sum + _empty_dock_sum)} docks in a state of disrepair."
+
+
 def main():
-    # print(plan_journey(get_stop_points(), 'bus'))
-    print(plan_journey(get_stop_points(), 'bus'))
+    NotImplemented
 
 
 if __name__ == '__main__':
