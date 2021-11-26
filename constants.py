@@ -7,6 +7,8 @@ VALID_MODES_URL = "https://api.tfl.gov.uk/Line/Meta/Modes/"
 ALL_BIKEPOINTS_URL = "https://api.tfl.gov.uk/BikePoint/"
 ALL_MODES = "https://api.tfl.gov.uk/Line/Mode/"
 BASE_LINE = "https://api.tfl.gov.uk/Line/"
+STOP_POINTS = "https://api.tfl.gov.uk/StopPoint/Search/"
+JOURNEY_RESULTS = "https://api.tfl.gov.uk/Journey/JourneyResults/"
 
 # ----------------------------------------Local Pathing---------------------------------------------
 
