@@ -12,8 +12,6 @@ VALID_MODES_URL = "https://api.tfl.gov.uk/Line/Meta/Modes/"
 
 DIRECTORY = './data/'
 MOST_RECENT = 'most_recent.json'
-AIR_QUALITY_FILE = 'AirQuality.json'
-LINE_FILE = 'Line.json'
 
 # ---------------------------------------Reusable Strings-------------------------------------------
 
