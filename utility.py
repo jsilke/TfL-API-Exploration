@@ -44,7 +44,6 @@ def json_from_file(file_name: str = MOST_RECENT, directory: str = DIRECTORY) -> 
 
 
 def tomorrow_forecast(json_object: dict) -> str:
-    # TODO: Make the output string pretty.
     """Returns tomorrow's forcast."""
     try:
         _tomorrow_forecast_dict = json_object['currentForecast'][1]
@@ -119,7 +118,6 @@ def count_line_stations(json_object: list) -> int:
 
 def get_stop_points(origin: str = "Heathrow Airport", destination: str = "Tower Bridge", url: str = STOP_POINTS_URL) -> tuple[str, str]:
     """Get stop point coordinates for origin and destination and return them as a tuple."""
-    # TODO Get coordinates for a station that isn't out of service!
     origin, destination = get_json(url, parameters={'query': origin}),\
         get_json(url, parameters={'query': destination})
 
@@ -141,8 +139,6 @@ def plan_journey(from_and_to: tuple[str, str], mode: str, url: str = JOURNEY_RES
     # Location needs to be generalized.
     return f'A {mode} trip from Heathrow Airport to Tower Bridge will take {trip_duration} minutes.'
 
-# TODO Add functions for task 4!
-
 
 def get_bikepoint_info(url: dict = ALL_BIKEPOINTS_URL):
     """Parse BikePoint JSON to extract the number of bike points and docks."""
@@ -160,11 +156,3 @@ def get_bikepoint_info(url: dict = ALL_BIKEPOINTS_URL):
         _bike_sum += int(_bike_point['additionalProperties'][-3]['value'])
 
     return f"TfL operates {_bike_point_quantity} bike points at present.\nThese bike points have a total of {sum((_empty_dock_sum, _dock_sum))} docks of which {_empty_dock_sum} are empty and {_dock_sum} are not.\nThere are currently {_dock_sum - (_bike_sum + _empty_dock_sum)} docks in a state of disrepair."
-
-
-def main():
-    NotImplemented
-
-
-if __name__ == '__main__':
-    main()

@@ -1,12 +1,10 @@
-from main import *
-
-# Abstracted task solution functions go here!
+from utility import *
 
 
 def task_1():
     print(get_json())
-
-
+    
+    
 def task_2():
     print(tomorrow_forecast(get_json()))
 

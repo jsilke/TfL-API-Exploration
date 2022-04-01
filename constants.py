@@ -1,4 +1,3 @@
-import os
 # ------------------------------------------API-specific--------------------------------------------
 
 AIR_QUALITY_URL = "https://api.tfl.gov.uk/AirQuality/"
