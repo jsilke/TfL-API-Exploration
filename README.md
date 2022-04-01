@@ -1,33 +1,33 @@
-# mini-project-I
+# Transport for London API exploration
 
-Welcome to your first **Mini Project**. This repo contains instructions what to do during the project. Enjoy!! 
+This repo is adapted from the [first mini-project](https://github.com/lighthouse-labs/mini-project-I) in Lighthouse Labs' Data Science bootcamp.
 
-## Transport of London
+## Motivation
+-------------
 
-During this mini-project, we will work with the API from [Transport of London](https://api.tfl.gov.uk/). The main goal of this project is to practice different HTTP requests and extracting values from complex lists and nested dictionaries.
+The main goal of this project is to practice making HTTP requests and extracting values from complex lists and nested dictionaries using the [Transport for London API](https://api-portal.tfl.gov.uk/apis).
 
-> #### Instruction
-> Register for the API service to obtain an **Application ID** and **Key**. We should append these values as parameters `app_id` and `app_key` into each URL when sending the request.
+The results of the following tasks were suggested for presentation:
 
-`?app_id={app_id}&app_key={app_key}` should be appended to every URL in all HTTP requests. However, this API works **without** the `app_id` and `app_key` in case we can't register for some reason.
+- [x] Print a response JSON object from TfL's [AirQuality API](https://api-portal.tfl.gov.uk/api-details#api=AirQuality&operation=AirQuality_Get).
+- [x] Parse the dictionary and print the AirQuality predictions for tomorrow.
+- [x] List the different modes of transport which are operated by TfL. State how many modes they have.
+- [x] State the number of BikePoints in London that are operated by TfL. State the total number of docks in **all** BikePoints.
+- [x] State the number of tube and bus lines in London. Print the names of all tube lines.
+- [x] State the number of stations on the `victoria` line.
+- [x] Plan the journey from Heathrow Airport to Tower Bridge using Bus and Tube and display the version of each in minutes.
 
-> #### Instruction
-> Once you have your credentials ready, go to the file `mini-project-I.ipynb` and follow the instruction in there.
+The solutions to these tasks are provided in the [solutions notebook](./solutions.ipynb).
 
+## Structure
+------------
 
-## Movies (stretch)
-
-> #### Instruction
-> Register for the [API service](https://www.themoviedb.org/account/signup) to obtain the **API Key**. We will have to append this value as parameter `api_key` into each URL when sending the request.
-
-Once we are registered we can check the documentation of this API [here](https://developers.themoviedb.org/3/account).
-
-In this part of the project, we will look for information about our favorite movie and actors. We will learn something about each other tomorrow when we present results.
-
-
-## Presentation
-
-There is dedicated time tomorrow to show the results to mentors and our peers. We encourage you to spend some time at the end of today to start think about that and to:
-
-- polish your code
-- think about how do you want to show the results (share screen with notebook, slides...)
+```bash
+.
+│   .gitignore
+│   README.md
+│   constants.py      # API configuration constants.
+│   solutions.ipynb   # Notebook containing task solutions.
+│   task_functions.py # Abstracted functions for each task.
+│   utility.py        # Utility functions to solve the tasks.
+```
