@@ -151,8 +151,8 @@ def get_bikepoint_info(url: dict = ALL_BIKEPOINTS_URL):
 
     for _bike_point in _bike_points:
         _empty_dock_sum += int(_bike_point['additionalProperties']
-                               [-2]['value'])
-        _dock_sum += int(_bike_point['additionalProperties'][-1]['value'])
-        _bike_sum += int(_bike_point['additionalProperties'][-3]['value'])
+                               [-4]['value'])
+        _dock_sum += int(_bike_point['additionalProperties'][-3]['value'])
+        _bike_sum += int(_bike_point['additionalProperties'][-5]['value'])
 
     return f"TfL operates {_bike_point_quantity} bike points at present.\nThese bike points have a total of {sum((_empty_dock_sum, _dock_sum))} docks of which {_empty_dock_sum} are empty and {_dock_sum} are not.\nThere are currently {_dock_sum - (_bike_sum + _empty_dock_sum)} docks in a state of disrepair."

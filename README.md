@@ -1,4 +1,4 @@
-# Transport for London API exploration
+# Transport for London API exploration ![Issues](https://img.shields.io/github/issues/jsilke/TfL-API-Exploration) ![Last Commit](https://img.shields.io/github/last-commit/jsilke/TfL-API-Exploration)
 
 This repo is adapted from the [first mini-project](https://github.com/lighthouse-labs/mini-project-I) in Lighthouse Labs' Data Science bootcamp.
 
@@ -31,3 +31,8 @@ The solutions to these tasks are provided in the [solutions notebook](./solution
 │   task_functions.py # Abstracted functions for each task.
 │   utility.py        # Utility functions to solve the tasks.
 ```
+
+## How to use this project
+--------------------------
+
+Open the [solutions notebook](./solutions.ipynb) and run all cells to produce current solutions to the tasks directly from [TfL's API](https://api-portal.tfl.gov.uk/apis).
