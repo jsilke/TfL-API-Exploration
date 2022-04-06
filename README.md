@@ -1,9 +1,8 @@
-# Transport for London API exploration ![Issues](https://img.shields.io/github/issues/jsilke/TfL-API-Exploration) ![Last Commit](https://img.shields.io/github/last-commit/jsilke/TfL-API-Exploration)
+# Transport for London API exploration ![Issues](https://img.shields.io/github/issues/jsilke/TfL-API-Exploration) ![Last Commit](https://img.shields.io/github/last-commit/jsilke/TfL-API-Exploration) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 This repo is adapted from the [first mini-project](https://github.com/lighthouse-labs/mini-project-I) in Lighthouse Labs' Data Science bootcamp.
 
 ## Motivation
--------------
 
 The main goal of this project is to practice making HTTP requests and extracting values from complex lists and nested dictionaries using the [Transport for London API](https://api-portal.tfl.gov.uk/apis).
 
@@ -20,7 +19,6 @@ The results of the following tasks were suggested for presentation:
 The solutions to these tasks are provided in the [solutions notebook](./solutions.ipynb).
 
 ## Structure
-------------
 
 ```bash
 .
@@ -33,6 +31,5 @@ The solutions to these tasks are provided in the [solutions notebook](./solution
 ```
 
 ## How to use this project
---------------------------
 
 Open the [solutions notebook](./solutions.ipynb) and run all cells to produce current solutions to the tasks directly from [TfL's API](https://api-portal.tfl.gov.uk/apis).

@@ -10,10 +10,10 @@ JOURNEY_RESULTS_URL = "https://api.tfl.gov.uk/Journey/JourneyResults/"
 
 # ----------------------------------------Local Pathing---------------------------------------------
 
-DIRECTORY = './data/'
-MOST_RECENT = 'most_recent.json'
+DIRECTORY = "./data/"
+MOST_RECENT = "most_recent.json"
 
 # ---------------------------------------Reusable Strings-------------------------------------------
 
-JSON_PARSE_HINT = 'Expected JSON-formatted response from the TfL API.'
-FILE_NOT_FOUND = 'FileNotFoundError - No such file or directory:'  # Custom message
+JSON_PARSE_HINT = "Expected JSON-formatted response from the TfL API."
+FILE_NOT_FOUND = "FileNotFoundError - No such file or directory:"  # Custom message
